@@ -1,5 +1,12 @@
 import { MongoClient } from "mongodb";
 import jwt from "jsonwebtoken";
+import getConfig from 'next/config'
+
+// Only holds serverRuntimeConfig and publicRuntimeConfig
+const { serverRuntimeConfig } = getConfig()
+const JWT_SECRET = serverRuntimeConfig.JWT_SECRET
+const JWT_EXPIRES_IN = serverRuntimeConfig.JWT_EXPIRES_IN
+const DATABASE_URL = serverRuntimeConfig.DATABASE_URL
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -15,7 +22,7 @@ export default async function handler(req, res) {
       return;
     }
 
-    const client = await MongoClient.connect(process.env.DATABASE_URL);
+    const client = await MongoClient.connect(DATABASE_URL);
     const db = client.db("GameSpaceDB");
 
     const user = await db.collection("Users").findOne({ email });
@@ -33,8 +40,8 @@ export default async function handler(req, res) {
     }
 
     // Create a JWT token
-    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRES_IN
+    const token = jwt.sign({ email: user.email }, JWT_SECRET, {
+      expiresIn: JWT_EXPIRES_IN
     });
 
     // Set cookie

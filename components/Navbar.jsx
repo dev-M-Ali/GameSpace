@@ -20,7 +20,9 @@ const Navbar = () => {
   return (
     <nav className="bg-[#F67385]/10 backdrop-blur-md p-4 fixed w-full top-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-white text-2xl font-bold">GameSpace</h1>
+        <Link href="/" className="text-white text-2xl font-bold hover:text-[#C26DFC] transition-colors">
+          GameSpace
+        </Link>
         <div className="md:hidden">
           <button
             onClick={toggleMenu}

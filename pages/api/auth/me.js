@@ -1,5 +1,11 @@
 import jwt from "jsonwebtoken";
 import { MongoClient } from "mongodb";
+import getConfig from 'next/config'
+
+// Only holds serverRuntimeConfig and publicRuntimeConfig
+const { serverRuntimeConfig } = getConfig()
+const JWT_SECRET = serverRuntimeConfig.JWT_SECRET
+const DATABASE_URL = serverRuntimeConfig.DATABASE_URL
 
 export default async function handler(req, res) {
   const { token } = req.cookies;
@@ -8,10 +14,10 @@ export default async function handler(req, res) {
 
   try
   {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET);
     //console.log("/api/me.js -> decoded.email is " + decoded.email)
 
-    const client = await MongoClient.connect(process.env.DATABASE_URL);
+    const client = await MongoClient.connect(DATABASE_URL);
 
     const db = client.db("GameSpaceDB");
 

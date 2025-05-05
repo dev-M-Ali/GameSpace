@@ -1,4 +1,9 @@
 import { MongoClient } from "mongodb"
+import getConfig from 'next/config'
+
+// Only holds serverRuntimeConfig and publicRuntimeConfig
+const { serverRuntimeConfig } = getConfig()
+const DATABASE_URL = serverRuntimeConfig.DATABASE_URL
 
 export default async function handler(request, response) {
     if (request.method == 'POST')
@@ -6,7 +11,7 @@ export default async function handler(request, response) {
         //console.log(request.body)
         const game = request.query.game
 
-        const client = await MongoClient.connect(process.env.DATABASE_URL)
+        const client = await MongoClient.connect(DATABASE_URL)
         const DB = client.db("GameSpaceDB")
 
         const updateDocument = {
@@ -24,7 +29,7 @@ export default async function handler(request, response) {
     {
         const game = request.query.game
 
-        const client = await MongoClient.connect(process.env.DATABASE_URL)
+        const client = await MongoClient.connect(DATABASE_URL)
         const DB = client.db("GameSpaceDB")
 
         const scoresArr = await DB.collection(game + "_Scores").find().toArray()
