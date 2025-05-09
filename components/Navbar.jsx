@@ -31,8 +31,8 @@ const Navbar = () => {
           <Link href="/tictactoe" className="text-white hover:bg-gray-700 px-3 py-2 rounded-xl">
             Tic Tac Toe
           </Link>
-          <Link href="/game1" className="text-white hover:bg-gray-700 px-3 py-2 rounded-xl">
-            Game 1
+          <Link href="/whack-a-mole" className="text-white hover:bg-gray-700 px-3 py-2 rounded-xl">
+            Whack-a-Mole
           </Link>
           <Link href="/game2" className="text-white hover:bg-gray-700 px-3 py-2 rounded-xl">
             Game 2

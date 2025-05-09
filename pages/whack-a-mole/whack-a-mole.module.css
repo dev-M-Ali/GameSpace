@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.mole-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #94ff70;
+    /* Dirt color */
+    border-radius: 50% 50% 0 0;
+    position: relative;
+}
+
+.mole {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(100%);
+    /* Hidden/underground initially */
+    transition: transform 2s ease-out;
+}
+
+/* Fully up */
+.mole--up {
+    transform: translateY(0);
+    /* Visible/above ground */
+}
+
+.mole img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.scoreDisplay {
+    font-size: 5rem;
+    text-align: center;
+    margin-top: 20vh;
+    font-weight: 900;
+    color: #fff;
+    background: linear-gradient(135deg, #ff6f61, #f5af19);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(255, 111, 97, 0.6);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    animation: glowFade 1.2s ease-in-out;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.scoreNumber {
+    color: #ffd700;
+    text-shadow: 0 0 10px #ffd700, 0 0 20px #ffa500;
+}
+
+@keyframes glowFade {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
