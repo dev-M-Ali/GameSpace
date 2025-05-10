@@ -44,7 +44,7 @@ export default function Whack_A_Mole(props) {
     const [scoreState, setScore] = useState(0)
     const [gameOverState, setGameOverState] = useState(false)
 
-    const gameDurationInSeconds = 30
+    const gameDurationInSeconds = 5
     const spawnIntervalInSeconds = 1
     const transitionDownDurationInSeconds = 2      //Imp: Make sure that in test.module.css, in the mole CSS class, the transition duration is the same
 
@@ -74,7 +74,7 @@ export default function Whack_A_Mole(props) {
         let gameLoop = setInterval(() => {
             //console.log("HI!")
 
-            const n = Math.floor(Math.random() * ((r * c) + 1) * 0.6)
+            const n = Math.floor(Math.random() * ((r * c) + 1) * 0.7)
 
             //console.log("n is ", n)
 
@@ -135,6 +135,23 @@ export default function Whack_A_Mole(props) {
         }, gameDurationInSeconds * 1000)
 
     }, [])
+
+    useEffect(() => {
+
+        //Had to do this separately
+        //Previously was being done in the setTimeout's callback that set the GameOver state to true, but we always got the value of score = 0 in that.
+        //Reason: Apparently React's 'captures' the value of the state when the callback is created/timer is started, and does not use score's new value afterwards (when its time to actually run the callback)
+        //Had to take help from AI for this
+        if (gameOverState == true)
+        {
+            if (props.setScoreObject)
+            {
+                //console.log("Whack-a-mole -> Updating parent's score state!")
+                //console.log("Whack-a-mole -> Score is" + scoreState)
+                props.setScoreObject({ score: scoreState })
+            }
+        }
+    }, [gameOverState])
 
     return (
         <div style={{ height: "100%", width: "100%" }}>

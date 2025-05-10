@@ -3,11 +3,13 @@ import Game from "./game_logic/Game";
 
 const TicTacToe = () => {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4">
-      <h1 className="text-4xl font-bold mb-6">Tic-Tac-Toe</h1>
+    <div className="h-full w-full flex flex-col items-center justify-center p-4">
+      <h1 className="text-3xl sm:text-4xl font-bold text-white mb-6 drop-shadow-md">
+        Tic-Tac-Toe
+      </h1>
       <Game />
     </div>
   );
-}
+};
 
-export default TicTacToe
+export default TicTacToe;
