@@ -1,4 +1,12 @@
 @import "tailwindcss";
+
+/* Global gradient background */
+@layer base {
+  body {
+    @apply min-h-screen bg-gradient-to-br from-[#F67385] via-[#C26DFC] to-[#8F8DFB];
+  }
+}
+
 /* 
 :root {
   --background: #ffffff;

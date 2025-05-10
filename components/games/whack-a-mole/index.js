@@ -136,42 +136,45 @@ export default function Whack_A_Mole(props) {
 
     }, [])
 
-    return <div>
-        {
-            gameOverState ?
-
+    return (
+        <div style={{ height: "100%", width: "100%" }}>
+            {gameOverState ? (
                 <h1 className={styles.scoreDisplay}>
                     🎯 Final Score: <span className={styles.scoreNumber}>{scoreState}</span>
                 </h1>
-
-                :
-
-                <div style={{
-                    display: "grid",
-                    gridTemplateRows: `repeat(${r}, 1fr)`,
-                    gridTemplateColumns: `repeat(${c}, 1fr)`,
-                    gap: '10px',
-                    width: '100vw',
-                    height: '100vh',
-                    boxSizing: 'border-box',
-                    padding: '10px'
-                }}>
-                    {
-                        arrState.map((row, rowNum) => {
-                            return row.map((val, colNum) => {
-                                return <div styles={{ overflow: 'hidden' }} className={styles['mole-container']}>
-
-
-                                    <div className={`${styles['mole']} ${val === 1 && styles['mole--up']}`} onClick={() => handleUserClick(rowNum, colNum)}>
-                                        <img src={val === -1 ? "/images/Monty_Mole_Sad.png" : "/images/Monty_Mole.png"} alt="Image of a Mole" />
+            ) : (
+                <div
+                    style={{
+                        display: "grid",
+                        gridTemplateRows: `repeat(${r}, 1fr)`,
+                        gridTemplateColumns: `repeat(${c}, 1fr)`,
+                        gap: "10px",
+                        width: "100%",
+                        height: "100%",
+                        boxSizing: "border-box",
+                        padding: "10px",
+                        overflow: "hidden", // Prevent grid content from overflowing
+                    }}
+                >
+                    {arrState.map((row, rowNum) => {
+                        return row.map((val, colNum) => {
+                            return (
+                                <div style={{ overflow: "hidden" }} className={styles["mole-container"]}>
+                                    <div
+                                        className={`${styles["mole"]} ${val === 1 && styles["mole--up"]}`}
+                                        onClick={() => handleUserClick(rowNum, colNum)}
+                                    >
+                                        <img
+                                            src={val === -1 ? "/images/Monty_Mole_Sad.png" : "/images/Monty_Mole.png"}
+                                            alt="Image of a Mole"
+                                        />
                                     </div>
-
-
                                 </div>
-                            })
-                        })
-                    }
+                            );
+                        });
+                    })}
                 </div>
-        }
-    </div>
+            )}
+        </div>
+    );
 }

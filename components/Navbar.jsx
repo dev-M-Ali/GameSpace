@@ -10,7 +10,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-[#F67385]/10 backdrop-blur-md p-4 fixed w-full top-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-white text-2xl font-bold">GameSpace</h1>
         <div className="md:hidden">
@@ -27,47 +27,47 @@ const Navbar = () => {
           </button>
         </div>
         {/* Desktop Menu */}
-        <div className={`hidden md:flex md:flex-row md:items-center md:space-x-4 ${isOpen ? 'hidden' : 'flex'}`}>
-          <Link href="/tictactoe" className="text-white hover:bg-gray-700 px-3 py-2 rounded-xl">
+        <div className="hidden md:flex md:flex-row md:items-center md:space-x-4">
+          <Link href="/games/tictactoe" className="text-white hover:bg-[#C26DFC]/20 px-3 py-2 rounded-xl transition-colors">
             Tic Tac Toe
           </Link>
-          <Link href="/whack-a-mole" className="text-white hover:bg-gray-700 px-3 py-2 rounded-xl">
+          <Link href="/games/whack-a-mole" className="text-white hover:bg-[#C26DFC]/20 px-3 py-2 rounded-xl transition-colors">
             Whack-a-Mole
           </Link>
-          <Link href="/game2" className="text-white hover:bg-gray-700 px-3 py-2 rounded-xl">
+          <Link href="/games/game2" className="text-white hover:bg-[#C26DFC]/20 px-3 py-2 rounded-xl transition-colors">
             Game 2
           </Link>
-          <Link href="/game3" className="text-white hover:bg-gray-700 px-3 py-2 rounded-xl">
+          <Link href="/games/game3" className="text-white hover:bg-[#C26DFC]/20 px-3 py-2 rounded-xl transition-colors">
             Game 3
           </Link>
         </div>
         <div className="hidden md:flex space-x-4">
-          <Link href="/signup" className="bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-600">
-            SignUp
+          <Link href="/signup" className="bg-[#F67385] text-white px-4 py-2 rounded-xl shadow-md hover:bg-[#C26DFC] transition-colors">
+            Sign Up
           </Link>
-          <Link href="/login" className="bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-600">
+          <Link href="/login" className="bg-[#F67385] text-white px-4 py-2 rounded-xl shadow-md hover:bg-[#C26DFC] transition-colors">
             Login
           </Link>
         </div>
       </div>
       {/* Mobile Menu */}
-      <div className={`md:hidden ${isOpen ? 'block' : 'hidden'} bg-gray-700 mt-2 rounded`}>
-        <Link href="/tictactoe" className="block text-white hover:bg-gray-600 px-4 py-2 rounded-xl">
+      <div className={`md:hidden ${isOpen ? 'block' : 'hidden'} bg-[#F67385]/20 backdrop-blur-md mt-2 rounded-xl p-4`}>
+        <Link href="/games/tictactoe" className="block text-white hover:bg-[#C26DFC]/20 px-4 py-2 rounded-xl transition-colors">
           Tic Tac Toe
         </Link>
-        <Link href="/game1" className="block text-white hover:bg-gray-600 px-4 py-2 rounded-xl">
-          Game 1
+        <Link href="/games/whack-a-mole" className="block text-white hover:bg-[#C26DFC]/20 px-4 py-2 rounded-xl transition-colors">
+          Whack-a-Mole
         </Link>
-        <Link href="/game2" className="block text-white hover:bg-gray-600 px-4 py-2 rounded-xl">
+        <Link href="/games/game2" className="block text-white hover:bg-[#C26DFC]/20 px-4 py-2 rounded-xl transition-colors">
           Game 2
         </Link>
-        <Link href="/game3" className="block text-white hover:bg-gray-600 px-4 py-2 rounded-xl">
+        <Link href="/games/game3" className="block text-white hover:bg-[#C26DFC]/20 px-4 py-2 rounded-xl transition-colors">
           Game 3
         </Link>
-        <Link href="/signup" className="block bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-xl">
-          SignUp
+        <Link href="/signup" className="block bg-[#F67385] text-white px-4 py-2 rounded-xl shadow-md hover:bg-[#C26DFC] mt-2 transition-colors">
+          Sign Up
         </Link>
-        <Link href="/login" className="block bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-xl">
+        <Link href="/login" className="block bg-[#F67385] text-white px-4 py-2 rounded-xl shadow-md hover:bg-[#C26DFC] mt-2 transition-colors">
           Login
         </Link>
       </div>
