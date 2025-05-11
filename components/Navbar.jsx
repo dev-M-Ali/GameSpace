@@ -80,10 +80,16 @@ const Navbar = () => {
             Game 2
           </Link>
           <Link
-            href="/games/game3"
+            href="/games/snake"
             className="text-white hover:bg-[#C26DFC]/20 px-3 py-2 rounded-xl transition-colors"
           >
-            Game 3
+            Snake
+          </Link>
+          <Link
+            href="/games/memory-match"
+            className="text-white hover:bg-[#C26DFC]/20 px-3 py-2 rounded-xl transition-colors"
+          >
+            Memory Match
           </Link>
         </div>
         <div className="hidden md:flex space-x-4">
@@ -101,6 +107,58 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
+      
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="md:hidden mt-4 bg-[#F67385]/20 backdrop-blur-md p-4 rounded-xl">
+          <div className="flex flex-col space-y-3">
+            <Link
+              href="/games/tictactoe"
+              className="text-white hover:bg-[#C26DFC]/20 px-3 py-2 rounded-xl transition-colors"
+              onClick={toggleMenu}
+            >
+              Tic Tac Toe
+            </Link>
+            <Link
+              href="/games/whack-a-mole"
+              className="text-white hover:bg-[#C26DFC]/20 px-3 py-2 rounded-xl transition-colors"
+              onClick={toggleMenu}
+            >
+              Whack-a-Mole
+            </Link>
+            <Link
+              href="/games/snake"
+              className="text-white hover:bg-[#C26DFC]/20 px-3 py-2 rounded-xl transition-colors"
+              onClick={toggleMenu}
+            >
+              Snake
+            </Link>
+            <Link
+              href="/games/memory-match"
+              className="text-white hover:bg-[#C26DFC]/20 px-3 py-2 rounded-xl transition-colors"
+              onClick={toggleMenu}
+            >
+              Memory Match
+            </Link>
+            <div className="flex space-x-2 mt-2">
+              <Link
+                href="/auth/signup"
+                className="bg-[#F67385] text-white px-3 py-2 rounded-xl shadow-md hover:bg-[#C26DFC] transition-colors flex-1 text-center"
+                onClick={toggleMenu}
+              >
+                Sign Up
+              </Link>
+              <Link
+                href="/auth/login"
+                className="bg-[#F67385] text-white px-3 py-2 rounded-xl shadow-md hover:bg-[#C26DFC] transition-colors flex-1 text-center"
+                onClick={toggleMenu}
+              >
+                Login
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

@@ -1,5 +1,7 @@
 import TicTacToe from "./components/games/tictactoe";
 import Whack_A_Mole from "./components/games/whack-a-mole";
+import Snake from "./components/games/snake";
+import MemoryMatch from "./components/games/memory-match";
 
 const games = {
     "whack-a-mole": {
@@ -8,6 +10,14 @@ const games = {
 
     "tictactoe": {
         component: TicTacToe
+    },
+    
+    "snake": {
+        component: Snake
+    },
+    
+    "memory-match": {
+        component: MemoryMatch
     }
 }
 
