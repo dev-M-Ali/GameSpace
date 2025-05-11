@@ -1,5 +1,6 @@
 import { MongoClient } from "mongodb";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 import getConfig from 'next/config'
 
 // Only holds serverRuntimeConfig and publicRuntimeConfig
@@ -26,15 +27,19 @@ export default async function handler(req, res) {
     const db = client.db("GameSpaceDB");
 
     const user = await db.collection("Users").findOne({ email });
-    await client.close();
-
+    
     if (!user) {
+      await client.close();
       res.status(401).json({ message: "Invalid credentials" });
       return;
     }
 
-    // In a real app, we'd hash the password and compare the hash
-    if (user.password !== password) {
+    // Compare the provided password with the hashed password using bcrypt
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    
+    await client.close();
+    
+    if (!passwordMatch) {
       res.status(401).json({ message: "Invalid credentials" });
       return;
     }
