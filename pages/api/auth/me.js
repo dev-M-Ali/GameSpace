@@ -1,8 +1,6 @@
 import jwt from "jsonwebtoken";
 import { MongoClient } from "mongodb";
 
-const JWT_SECRET = process.env.JWT_SECRET;
-
 export default async function handler(req, res) {
   const { token } = req.cookies;
 
@@ -10,12 +8,10 @@ export default async function handler(req, res) {
 
   try
   {
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     //console.log("/api/me.js -> decoded.email is " + decoded.email)
 
-    const client = await MongoClient.connect(
-      "mongodb+srv://GameSpaceDev:GameSpaceDev1234@gamespacecluster.79wzx7g.mongodb.net/?retryWrites=true&w=majority&appName=GameSpaceCluster"
-    );
+    const client = await MongoClient.connect(process.env.DATABASE_URL);
 
     const db = client.db("GameSpaceDB");
 
