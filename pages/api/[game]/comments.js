@@ -5,10 +5,15 @@ import getConfig from 'next/config'
 const { serverRuntimeConfig } = getConfig()
 const DATABASE_URL = serverRuntimeConfig.DATABASE_URL
 
+// Minimal MongoDB connection options
+const options = {
+  serverSelectionTimeoutMS: 5000
+};
+
 export default async function handler(request, response) {
     if (request.method == 'POST')
     {
-        const client = await MongoClient.connect(DATABASE_URL)
+        const client = await MongoClient.connect(DATABASE_URL, options)
         const DB = client.db("GameSpaceDB")
 
         const comments = await DB.collection("Comments").insertOne(request.body)
@@ -19,7 +24,7 @@ export default async function handler(request, response) {
     {
         const game = request.query.game
 
-        const client = await MongoClient.connect(DATABASE_URL)
+        const client = await MongoClient.connect(DATABASE_URL, options)
         const DB = client.db("GameSpaceDB")
 
         const comments = await DB.collection("Comments").find({ game }).toArray()

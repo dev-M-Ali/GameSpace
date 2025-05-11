@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Board from './Board';
 
 function calculateWinner(squares) {
@@ -15,9 +15,11 @@ function calculateWinner(squares) {
   return null;
 }
 
-const Game = () => {
+const Game = ({ setScoreObject }) => {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
+  const [moveCount, setMoveCount] = useState(0);
+  const [gameFinished, setGameFinished] = useState(false);
 
   const handleClick = (i) => {
     if (squares[i] || calculateWinner(squares)) return;
@@ -25,12 +27,47 @@ const Game = () => {
     newSquares[i] = xIsNext ? 'X' : 'O';
     setSquares(newSquares);
     setXIsNext(!xIsNext);
+    setMoveCount(moveCount + 1);
   };
 
   const resetGame = () => {
     setSquares(Array(9).fill(null));
     setXIsNext(true);
+    setMoveCount(0);
+    setGameFinished(false);
   };
+
+  useEffect(() => {
+    const winner = calculateWinner(squares);
+    const isDraw = squares.every(square => square !== null);
+    
+    if (winner || isDraw) {
+      setGameFinished(true);
+      
+      if (setScoreObject) {
+        // Calculate score:
+        // - Win as X: 100 points
+        // - Win as O: 80 points
+        // - Draw: 50 points
+        // - Less moves = higher score (bonus)
+        let score = 0;
+        
+        if (winner === 'X') {
+          score = 100;
+        } else if (winner === 'O') {
+          score = 80;
+        } else if (isDraw) {
+          score = 50;
+        }
+        
+        // Add bonus for quick games
+        const moveBonus = Math.max(0, 20 - (moveCount * 2));
+        score += moveBonus;
+        
+        setScoreObject({ score });
+      }
+    }
+  }, [squares, moveCount, setScoreObject]);
 
   const winner = calculateWinner(squares);
   const isDraw = squares.every(square => square !== null);
@@ -50,6 +87,13 @@ const Game = () => {
       >
         Reset Game
       </button>
+      {gameFinished && (
+        <div className="mt-4 text-sm text-gray-700">
+          {winner ? `You won as ${winner}!` : 'Draw!'}
+          <br />
+          {setScoreObject && "Score has been recorded"}
+        </div>
+      )}
     </div>
   );
 };
