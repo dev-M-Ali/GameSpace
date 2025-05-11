@@ -9,6 +9,11 @@ const JWT_SECRET = serverRuntimeConfig.JWT_SECRET
 const JWT_EXPIRES_IN = serverRuntimeConfig.JWT_EXPIRES_IN
 const DATABASE_URL = serverRuntimeConfig.DATABASE_URL
 
+// Minimal MongoDB connection options
+const options = {
+  serverSelectionTimeoutMS: 5000
+};
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.status(405).json({ message: "Method not allowed" });
@@ -23,7 +28,7 @@ export default async function handler(req, res) {
       return;
     }
 
-    const client = await MongoClient.connect(DATABASE_URL);
+    const client = await MongoClient.connect(DATABASE_URL, options);
     const db = client.db("GameSpaceDB");
 
     const user = await db.collection("Users").findOne({ email });

@@ -7,6 +7,11 @@ const { serverRuntimeConfig } = getConfig()
 const JWT_SECRET = serverRuntimeConfig.JWT_SECRET
 const DATABASE_URL = serverRuntimeConfig.DATABASE_URL
 
+// Minimal MongoDB connection options
+const options = {
+  serverSelectionTimeoutMS: 5000
+};
+
 export default async function handler(req, res) {
   const { token } = req.cookies;
 
@@ -17,7 +22,7 @@ export default async function handler(req, res) {
     const decoded = jwt.verify(token, JWT_SECRET);
     //console.log("/api/me.js -> decoded.email is " + decoded.email)
 
-    const client = await MongoClient.connect(DATABASE_URL);
+    const client = await MongoClient.connect(DATABASE_URL, options);
 
     const db = client.db("GameSpaceDB");
 
