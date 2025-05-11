@@ -29,15 +29,37 @@ export default function Profile() {
         
         setUser(data.user);
 
-        // Fetch user scores
-        // TODO: Implement an API to fetch scores for all games for this user
-        // For now, this is a placeholder
+        // Fetch user scores from all game endpoints
+        const games = ['snake', 'whack-a-mole', 'tictactoe', 'memory-match', '1024'];
+        const scoresData = [];
         
-        setScores([
-          { game: "Snake", score: 150, date: new Date().toLocaleString() },
-          { game: "Whack-a-Mole", score: 42, date: new Date().toLocaleString() },
-          { game: "Memory Match", score: 12, date: new Date().toLocaleString() },
-        ]);
+        for (const game of games) {
+          try {
+            const response = await axios.get(`/api/${game}/scores?email=${data.user.email}`);
+            if (response.data && response.data.length > 0) {
+              // Format game name for display
+              const formattedGameName = game
+                .split('-')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+              
+              // For each score entry for this game
+              response.data.forEach(entry => {
+                scoresData.push({
+                  game: game === 'tictactoe' ? 'Tic Tac Toe' : formattedGameName,
+                  score: entry.score || 0,
+                  date: new Date(entry.timestamp || Date.now()).toLocaleString()
+                });
+              });
+            }
+          } catch (err) {
+            console.error(`Failed to fetch scores for ${game}:`, err);
+          }
+        }
+        
+        // Sort by date (newest first)
+        scoresData.sort((a, b) => new Date(b.date) - new Date(a.date));
+        setScores(scoresData);
       } catch (error) {
         console.error("Failed to fetch user data", error);
       } finally {

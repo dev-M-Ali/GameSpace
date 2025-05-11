@@ -10,7 +10,6 @@ export default function AdminDashboard() {
     totalUsers: 0,
     totalGames: 5,
     totalPlays: 0,
-    totalComments: 0,
     gameStats: []
   });
   
@@ -67,11 +66,10 @@ export default function AdminDashboard() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           <StatCard title="Total Users" value={stats.totalUsers} icon="👤" color="bg-gradient-to-br from-pink-500 to-rose-600" />
           <StatCard title="Games Available" value={stats.totalGames} icon="🎮" color="bg-gradient-to-br from-blue-500 to-indigo-600" />
           <StatCard title="Total Game Plays" value={stats.totalPlays} icon="🎯" color="bg-gradient-to-br from-emerald-500 to-green-600" />
-          <StatCard title="Comments" value={stats.totalComments} icon="💬" color="bg-gradient-to-br from-amber-500 to-orange-600" />
         </div>
 
         {/* Game Statistics */}
@@ -109,49 +107,32 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* Management Sections */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        {/* Management Sections - Only include user management which is implemented */}
+        <div className="mb-8">
           <AdminSection 
             title="User Management" 
-            description="Manage user accounts, permissions, and activities"
+            description="Manage user accounts and permissions"
             icon="👥"
             actions={[
               { label: 'View All Users', href: '/admin/users' },
-              { label: 'Add New Admin', href: '/admin/users/new-admin' },
-            ]}
-          />
-          
-          <AdminSection 
-            title="Game Management" 
-            description="Configure games, settings, and statistics"
-            icon="🎲"
-            actions={[
-              { label: 'Game Settings', href: '/admin/games' },
-              { label: 'View Score Reports', href: '/admin/games/scores' },
             ]}
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <AdminSection 
-            title="Content Moderation" 
-            description="Manage comments and user-generated content"
-            icon="🛡️"
-            actions={[
-              { label: 'Review Comments', href: '/admin/moderation/comments' },
-              { label: 'Flagged Content', href: '/admin/moderation/flagged' },
-            ]}
-          />
-          
-          <AdminSection 
-            title="System Settings" 
-            description="Configure application settings and maintenance"
-            icon="⚙️"
-            actions={[
-              { label: 'Site Settings', href: '/admin/settings' },
-              { label: 'View Logs', href: '/admin/logs' },
-            ]}
-          />
+        {/* Note about future functionality */}
+        <div className="bg-white/5 backdrop-blur-md rounded-xl border border-white/15 overflow-hidden mb-8 p-6">
+          <h2 className="text-xl font-bold text-white mb-4">Admin Dashboard Development</h2>
+          <p className="text-white/70 mb-3">
+            This admin dashboard is currently in development. Additional functionality will be added in future updates.
+          </p>
+          <p className="text-white/70">
+            Currently implemented features:
+          </p>
+          <ul className="list-disc list-inside text-white/70 mt-2 ml-4 space-y-1">
+            <li>View basic system statistics</li>
+            <li>View and manage user accounts</li>
+            <li>Set admin privileges</li>
+          </ul>
         </div>
 
         {/* Return to site button */}

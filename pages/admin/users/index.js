@@ -40,22 +40,23 @@ export default function UserManagement() {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      // In a real app, this would be an API call to get users
-      // For demo purposes, we'll simulate users data
-      const sampleUsers = [
-        { _id: '1', email: 'admin@example.com', isAdmin: true, lastLogin: new Date().toISOString() },
-        { _id: '2', email: 'user1@example.com', isAdmin: false, lastLogin: new Date(Date.now() - 86400000).toISOString() },
-        { _id: '3', email: 'user2@example.com', isAdmin: false, lastLogin: new Date(Date.now() - 172800000).toISOString() },
-        { _id: '4', email: 'user3@example.com', isAdmin: false, lastLogin: new Date(Date.now() - 259200000).toISOString() },
-        { _id: '5', email: 'moderator@example.com', isAdmin: true, lastLogin: new Date(Date.now() - 345600000).toISOString() },
-        { _id: '6', email: 'test1@gmail.com', isAdmin: false, lastLogin: new Date(Date.now() - 432000000).toISOString() },
-        { _id: '7', email: 'inactive@example.com', isAdmin: false, lastLogin: new Date(Date.now() - 2592000000).toISOString() },
-      ];
+      // Fetch real users data from the API
+      const { data } = await axios.get('/api/admin/users');
       
-      setUsers(sampleUsers);
+      if (data.success) {
+        setUsers(data.users);
+      } else {
+        setMessage({ type: 'error', text: data.message || 'Failed to load users.' });
+      }
     } catch (error) {
       console.error('Failed to fetch users:', error);
       setMessage({ type: 'error', text: 'Failed to load users. Please try again.' });
+      
+      // If the API call fails, provide some fallback data for testing
+      setUsers([
+        { _id: '1', email: 'admin@example.com', isAdmin: true, lastLogin: new Date().toISOString() },
+        { _id: '2', email: 'user@example.com', isAdmin: false, lastLogin: new Date(Date.now() - 86400000).toISOString() },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -190,7 +191,7 @@ export default function UserManagement() {
                           {userData.isAdmin ? 'Admin' : 'User'}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-white/70">{formatDate(userData.lastLogin)}</td>
+                      <td className="px-6 py-4 text-white/70">{formatDate(userData.lastLogin || userData.createdAt || Date.now())}</td>
                       <td className="px-6 py-4 text-right">
                         <button
                           onClick={() => toggleAdminStatus(userData._id, userData.isAdmin)}
