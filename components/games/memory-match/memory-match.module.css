@@ -1,0 +1,201 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  color: white;
+  overflow-y: auto;
+  max-height: calc(100vh - 100px);
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+  text-shadow: 0 0 10px rgba(194, 109, 252, 0.8);
+}
+
+.gameContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  padding-bottom: 30px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 15px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 500px;
+}
+
+.card {
+  aspect-ratio: 1;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card.matched {
+  transform: rotateY(180deg);
+  cursor: default;
+}
+
+.cardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.cardFront,
+.cardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.cardFront {
+  background-color: rgba(194, 109, 252, 0.5);
+  box-shadow: 0 0 10px rgba(194, 109, 252, 0.3);
+  border: 2px solid rgba(246, 115, 133, 0.8);
+}
+
+.cardBack {
+  background-color: rgba(246, 115, 133, 0.8);
+  transform: rotateY(180deg);
+  font-size: 2rem;
+}
+
+.gameOverContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 30px;
+  border-radius: 8px;
+  border: 2px solid rgba(194, 109, 252, 0.6);
+  box-shadow: 0 0 20px rgba(194, 109, 252, 0.3);
+  animation: fadeIn 0.5s ease-in-out;
+  margin-top: 20px;
+}
+
+.gameOverTitle {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #f67385;
+}
+
+.gameOverText {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.scoreText {
+  font-size: 1.5rem;
+  margin: 15px 0;
+  font-weight: bold;
+}
+
+.playAgainButton {
+  background-color: rgba(194, 109, 252, 0.7);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.playAgainButton:hover {
+  background-color: rgba(194, 109, 252, 1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .grid {
+    grid-gap: 10px;
+  }
+  
+  .cardBack {
+    font-size: 1.5rem;
+  }
+  
+  .gameOverTitle {
+    font-size: 1.5rem;
+  }
+}
+
+/* Responsive grid for different screen sizes */
+@media (max-height: 800px) {
+  .grid {
+    grid-gap: 10px;
+    max-width: 400px;
+  }
+}
+
+@media (max-height: 700px) {
+  .container {
+    padding: 10px;
+  }
+  
+  .title {
+    margin-bottom: 10px;
+  }
+  
+  .stats {
+    margin-bottom: 10px;
+  }
+  
+  .grid {
+    grid-gap: 8px;
+    max-width: 350px;
+  }
+} 
