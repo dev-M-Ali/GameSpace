@@ -103,7 +103,7 @@ function checkGameOver(grid) {
   return true;
 }
 
-export default function Game1024() {
+export default function Game1024({ setScoreObject }) {
   const gridSize = 4;
   const [grid, setGrid] = useState(initializeGrid(gridSize));
   const [score, setScore] = useState(0);
@@ -142,6 +142,15 @@ export default function Game1024() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [grid, gameOver, keepPlaying]);
+
+  useEffect(() => {
+    if (gameOver && setScoreObject) {
+      const tileBonus = Math.log2(maxTile) * 10;
+      const finalScore = Math.floor(score * (1 + tileBonus / 100));
+      
+      setScoreObject({ score: finalScore });
+    }
+  }, [gameOver, score, maxTile, setScoreObject]);
 
   const move = (direction) => {
     const { grid: newGrid, scoreIncrease, moved } = moveTiles(grid, direction);
