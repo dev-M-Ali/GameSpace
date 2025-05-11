@@ -8,6 +8,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -16,6 +17,16 @@ const Navbar = () => {
       try {
         const { data } = await axios.get("/api/auth/me");
         setUser(data.user);
+        
+        // If user is logged in, check if they're an admin
+        if (data.user) {
+          try {
+            const adminCheck = await axios.get("/api/auth/check-admin");
+            setIsAdmin(adminCheck.data.isAdmin);
+          } catch (error) {
+            console.error("Failed to check admin status", error);
+          }
+        }
       } catch (error) {
         console.error("Failed to fetch user", error);
       } finally {
@@ -42,6 +53,7 @@ const Navbar = () => {
     try {
       await axios.get("/api/auth/logout");
       setUser(null);
+      setIsAdmin(false);
       router.push("/");
     } catch (error) {
       console.error("Failed to logout", error);
@@ -50,6 +62,10 @@ const Navbar = () => {
   
   const handleProfile = () => {
     router.push("/profile");
+  };
+
+  const handleAdminDashboard = () => {
+    router.push("/admin");
   };
 
   return (
@@ -136,6 +152,14 @@ const Navbar = () => {
             </div>
           ) : user ? (
             <>
+              {isAdmin && (
+                <button
+                  onClick={handleAdminDashboard}
+                  className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-xl shadow-md hover:shadow-lg transition-all active:scale-95"
+                >
+                  Admin
+                </button>
+              )}
               <button
                 onClick={handleProfile}
                 className="bg-[#C26DFC] text-white px-4 py-2 rounded-xl shadow-md hover:bg-[#A84FE0] transition-all active:scale-95"
@@ -207,6 +231,20 @@ const Navbar = () => {
             >
               1024
             </Link>
+            
+            {/* Admin Link (Mobile) */}
+            {user && isAdmin && (
+              <button
+                onClick={() => {
+                  handleAdminDashboard();
+                  toggleMenu();
+                }}
+                className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-2 rounded-xl text-left transition-all active:scale-95"
+              >
+                Admin Dashboard
+              </button>
+            )}
+            
             <div className="flex space-x-2 mt-2">
               {loading ? (
                 <div className="bg-[#F67385]/50 text-white px-3 py-2 rounded-xl animate-pulse flex-1 text-center">

@@ -14,6 +14,7 @@ export default function Profile() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [scores, setScores] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -28,6 +29,14 @@ export default function Profile() {
         }
         
         setUser(data.user);
+
+        // Check if user is admin
+        try {
+          const adminCheck = await axios.get("/api/auth/check-admin");
+          setIsAdmin(adminCheck.data.isAdmin);
+        } catch (err) {
+          console.error("Failed to check admin status:", err);
+        }
 
         // Fetch user scores from all game endpoints
         const games = ['snake', 'whack-a-mole', 'tictactoe', 'memory-match', '1024'];
@@ -84,6 +93,27 @@ export default function Profile() {
       <ProfileHeader user={user} />
       
       <div className="max-w-4xl mx-auto px-4">
+        {/* Admin Dashboard Link (only for admin users) */}
+        {isAdmin && (
+          <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl p-4 mb-8 shadow-lg hover:shadow-xl transition-all">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-bold text-white">Admin Dashboard</h2>
+                <p className="text-white/80">Manage users, games, and content</p>
+              </div>
+              <Link 
+                href="/admin"
+                className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-colors inline-flex items-center"
+              >
+                <span>Open Dashboard</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        )}
+        
         {/* Game Activity */}
         <GameActivity scores={scores} />
         

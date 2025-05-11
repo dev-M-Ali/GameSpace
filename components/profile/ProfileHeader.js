@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import axios from 'axios';
 
 export default function ProfileHeader({ user }) {
   const [isEditingAvatar, setIsEditingAvatar] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   
   // Calculate membership duration
   const memberSince = user._id 
@@ -10,6 +12,20 @@ export default function ProfileHeader({ user }) {
     : null;
   
   const membershipDuration = memberSince ? calculateMembershipDuration(memberSince) : '';
+
+  // Check if user is admin
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      try {
+        const { data } = await axios.get('/api/auth/check-admin');
+        setIsAdmin(data.isAdmin);
+      } catch (error) {
+        console.error('Failed to check admin status:', error);
+      }
+    };
+
+    checkAdminStatus();
+  }, []);
 
   return (
     <div className="relative mb-8">
@@ -52,9 +68,18 @@ export default function ProfileHeader({ user }) {
           
           {/* User Info */}
           <div className="mt-4 md:mt-0 md:ml-6 pb-2">
-            <h1 className="text-2xl md:text-3xl font-bold text-white drop-shadow-md">
-              {user.displayName || user.email.split('@')[0]}
-            </h1>
+            <div className="flex items-center gap-2">
+              <h1 className="text-2xl md:text-3xl font-bold text-white drop-shadow-md">
+                {user.displayName || user.email.split('@')[0]}
+              </h1>
+              
+              {/* Admin Badge */}
+              {isAdmin && (
+                <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-xs font-bold px-2 py-1 rounded-full text-white shadow-md">
+                  ADMIN
+                </span>
+              )}
+            </div>
             <div className="flex flex-col md:flex-row md:items-center md:gap-6 mt-1 text-white/70">
               <div>{user.email}</div>
               <div className="hidden md:block">•</div>
