@@ -31,6 +31,13 @@ const gameInfo = {
     image: "/images/memory-match-preview.jpg",
     color: "from-pink-500 to-rose-600",
     icon: "🎴"
+  },
+  "1024": {
+    title: "1024",
+    description: "Combine numbered tiles to reach 1024! A challenging puzzle game that tests your strategic planning.",
+    image: "/images/1024-preview.jpg",
+    color: "from-amber-500 to-orange-600",
+    icon: "🔢"
   }
 };
 

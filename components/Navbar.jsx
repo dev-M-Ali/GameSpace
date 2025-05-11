@@ -76,12 +76,6 @@ const Navbar = () => {
             Whack-a-Mole
           </Link>
           <Link
-            href="/games/game2"
-            className="text-white hover:bg-[#C26DFC]/20 px-3 py-2 rounded-xl transition-colors"
-          >
-            Game 2
-          </Link>
-          <Link
             href="/games/snake"
             className="text-white hover:bg-[#C26DFC]/20 px-3 py-2 rounded-xl transition-colors"
           >
@@ -92,6 +86,12 @@ const Navbar = () => {
             className="text-white hover:bg-[#C26DFC]/20 px-3 py-2 rounded-xl transition-colors"
           >
             Memory Match
+          </Link>
+          <Link
+            href="/games/1024"
+            className="text-white hover:bg-[#C26DFC]/20 px-3 py-2 rounded-xl transition-colors"
+          >
+            1024
           </Link>
         </div>
         <div className="hidden md:flex space-x-4">
@@ -141,6 +141,13 @@ const Navbar = () => {
               onClick={toggleMenu}
             >
               Memory Match
+            </Link>
+            <Link
+              href="/games/1024"
+              className="text-white hover:bg-[#C26DFC]/20 px-3 py-2 rounded-xl transition-colors"
+              onClick={toggleMenu}
+            >
+              1024
             </Link>
             <div className="flex space-x-2 mt-2">
               <Link

@@ -1,0 +1,268 @@
+/* game1024.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Press+Start+2P&display=swap');
+
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+  color: #776e65;
+  user-select: none;
+
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* Shadow effect */
+  overflow: hidden; /* Prevent content overflow */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0;
+  color: #776e65;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.scores {
+  display: flex;
+  gap: 10px;
+}
+
+.scoreBox {
+  background: #bbada0;
+  padding: 10px 15px;
+  border-radius: 6px;
+  text-align: center;
+  min-width: 60px;
+}
+
+.scoreLabel {
+  color: #eee4da;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.scoreValue {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.gameControls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.newGameButton, .continueButton {
+  background: #8f7a66;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.newGameButton:hover, .continueButton:hover {
+  background: #9f8b77;
+}
+
+.continueButton {
+  background: #f67c5f;
+}
+
+.continueButton:hover {
+  background: #f78c6f;
+}
+
+.gameContainer {
+  position: relative;
+  background: #bbada0;
+  border-radius: 6px;
+  width: 100%;
+  padding-bottom: 100%; /* Maintain square aspect ratio */
+  touch-action: none;
+  margin-top: 0px; /* Space from header */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.gridBackground {
+  position: absolute;
+  top: 10px; /* Add some padding */
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+  padding: 10px;
+  box-sizing: border-box; /* Include padding in dimensions */
+}
+.gridCell {
+  background: rgba(238, 228, 218, 0.35);
+  border-radius: 3px;
+}
+
+.tilesContainer {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.tile {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(25% - 15px);
+  height: calc(25% - 15px);
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 3px;
+  transition: all 0.1s ease-in-out;
+  z-index: 10;
+}
+
+/* Tile colors */
+.tile-2 {
+  background: #eee4da;
+  color: #776e65;
+}
+
+.tile-4 {
+  background: #ede0c8;
+  color: #776e65;
+}
+
+.tile-8 {
+  background: #f2b179;
+  color: white;
+}
+
+.tile-16 {
+  background: #f59563;
+  color: white;
+}
+
+.tile-32 {
+  background: #f67c5f;
+  color: white;
+}
+
+.tile-64 {
+  background: #f65e3b;
+  color: white;
+}
+
+.tile-128 {
+  background: #edcf72;
+  color: white;
+  font-size: 1.8rem;
+}
+
+.tile-256 {
+  background: #edcc61;
+  color: white;
+  font-size: 1.8rem;
+}
+
+.tile-512 {
+  background: #edc850;
+  color: white;
+  font-size: 1.8rem;
+}
+
+.tile-1024 {
+  background: #edc53f;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.tile-2048 {
+  background: #edc22e;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.gameOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(238, 228, 218, 0.73);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  z-index: 100;
+}
+
+.gameOverMessage, .winMessage {
+  background: rgba(143, 122, 102, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 6px;
+  text-align: center;
+  max-width: 80%;
+}
+
+.gameOverMessage h2, .winMessage h2 {
+  margin: 0 0 10px 0;
+  font-size: 2rem;
+}
+
+.instructions {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+  .container {
+    padding: 10px;
+    margin: 10px;
+    width: calc(100% - 20px);
+  }
+  .title {
+    font-size: 2rem;
+  }
+  
+  .scoreBox {
+    min-width: 50px;
+    padding: 8px 10px;
+  }
+  
+  .scoreValue {
+    font-size: 1.2rem;
+  }
+  
+  .tile {
+    font-size: 1.5rem;
+  }
+  
+  .tile-128, .tile-256, .tile-512 {
+    font-size: 1.3rem;
+  }
+  
+  .tile-1024, .tile-2048 {
+    font-size: 1rem;
+  }
+}
