@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 export default function Home() {
   return (
     <div>
+      <h1>Game space welcomes you</h1>
     </div>
   );
 }

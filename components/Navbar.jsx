@@ -1,13 +1,21 @@
 // components/Navbar.js
 import { useState } from "react";
 import Link from "next/link";
+import Router, { useRouter } from "next/router";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const router=useRouter();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+  const handleLogin=()=>{
+    router.push("/auth/login")
+  }
+  const handleSignup=()=>{
+    router.push("/auth/signup")
+  }
 
   return (
     <nav className="bg-[#F67385]/10 backdrop-blur-md p-4 fixed w-full top-0 z-50">
@@ -80,61 +88,18 @@ const Navbar = () => {
         </div>
         <div className="hidden md:flex space-x-4">
           <Link
-            href="/signup"
+            href="/auth/signup"
             className="bg-[#F67385] text-white px-4 py-2 rounded-xl shadow-md hover:bg-[#C26DFC] transition-colors"
           >
-            Sign Up
+            <button type="button" onClick={handleSignup}>Sign Up</button>
           </Link>
           <Link
-            href="/login"
+            href="/auth/login"
             className="bg-[#F67385] text-white px-4 py-2 rounded-xl shadow-md hover:bg-[#C26DFC] transition-colors"
           >
-            Login
+            <button type="button" onClick={handleLogin}>Login</button>
           </Link>
         </div>
-      </div>
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden ${
-          isOpen ? "block" : "hidden"
-        } bg-[#F67385]/20 backdrop-blur-md mt-2 rounded-xl p-4`}
-      >
-        <Link
-          href="/games/tictactoe"
-          className="block text-white hover:bg-[#C26DFC]/20 px-4 py-2 rounded-xl transition-colors"
-        >
-          Tic Tac Toe
-        </Link>
-        <Link
-          href="/games/whack-a-mole"
-          className="block text-white hover:bg-[#C26DFC]/20 px-4 py-2 rounded-xl transition-colors"
-        >
-          Whack-a-Mole
-        </Link>
-        <Link
-          href="/games/game2"
-          className="block text-white hover:bg-[#C26DFC]/20 px-4 py-2 rounded-xl transition-colors"
-        >
-          Game 2
-        </Link>
-        <Link
-          href="/games/game3"
-          className="block text-white hover:bg-[#C26DFC]/20 px-4 py-2 rounded-xl transition-colors"
-        >
-          Game 3
-        </Link>
-        <Link
-          href="/auth/signup"
-          className="block bg-[#F67385] text-white px-4 py-2 rounded-xl shadow-md hover:bg-[#C26DFC] mt-2 transition-colors"
-        >
-          Sign Up
-        </Link>
-        <Link
-          href="/auth/signup"
-          className="block bg-[#F67385] text-white px-4 py-2 rounded-xl shadow-md hover:bg-[#C26DFC] mt-2 transition-colors"
-        >
-          Login
-        </Link>
       </div>
     </nav>
   );

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,19 +12,21 @@ export default function Login() {
     e.preventDefault();
     setError("");
 
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const res = await axios.post("/api/auth/login", { email, password });
 
-    const data = await res.json();
+      // Assuming your API returns token in cookies, no need to save token manually
+      // But if you want to save token from response data:
+      // localStorage.setItem("token", res.data.token);
 
-    if (res.ok) {
-      localStorage.setItem("token", data.token);
       router.push("/");
-    } else {
-      setError(data.message || "Login failed");
+    } catch (err) {
+      // axios error handling
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Login failed");
+      }
     }
   }
 
