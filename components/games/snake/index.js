@@ -74,24 +74,62 @@ const Snake = ({ setScoreObject }) => {
     const moveSnake = () => {
       setSnake(prevSnake => {
         const head = { ...prevSnake[0] };
+        let willPassBoundary = false;
+        let newX = head.x;
+        let newY = head.y;
         
-        // Move the head based on direction
+        // Calculate new position based on direction
         switch (direction) {
           case 'UP':
-            head.y = (head.y - 1 + GRID_SIZE) % GRID_SIZE;
+            newY = head.y - 1;
+            willPassBoundary = (newY < 0);
             break;
           case 'DOWN':
-            head.y = (head.y + 1) % GRID_SIZE;
+            newY = head.y + 1;
+            willPassBoundary = (newY >= GRID_SIZE);
             break;
           case 'LEFT':
-            head.x = (head.x - 1 + GRID_SIZE) % GRID_SIZE;
+            newX = head.x - 1;
+            willPassBoundary = (newX < 0);
             break;
           case 'RIGHT':
-            head.x = (head.x + 1) % GRID_SIZE;
+            newX = head.x + 1;
+            willPassBoundary = (newX >= GRID_SIZE);
             break;
           default:
             break;
         }
+        
+        // Apply boundary wrap around carefully
+        if (willPassBoundary) {
+          // If score is high (over 120), ensure precise boundary wrap with no skips
+          if (score > 120) {
+            switch (direction) {
+              case 'UP':
+                newY = GRID_SIZE - 1;
+                break;
+              case 'DOWN':
+                newY = 0;
+                break;
+              case 'LEFT':
+                newX = GRID_SIZE - 1;
+                break;
+              case 'RIGHT':
+                newX = 0;
+                break;
+              default:
+                break;
+            }
+          } else {
+            // Normal boundary wrap using modulo for lower scores
+            newY = (newY + GRID_SIZE) % GRID_SIZE;
+            newX = (newX + GRID_SIZE) % GRID_SIZE;
+          }
+        }
+        
+        // Update head position
+        head.x = newX;
+        head.y = newY;
         
         // Check if snake hits itself
         const hitSelf = prevSnake.some((segment, index) => 
@@ -127,7 +165,7 @@ const Snake = ({ setScoreObject }) => {
 
     const gameInterval = setInterval(moveSnake, speed);
     return () => clearInterval(gameInterval);
-  }, [direction, food, gameOver, isPaused, speed]);
+  }, [direction, food, gameOver, isPaused, speed, score]);
 
   // Send score when game is over
   useEffect(() => {
