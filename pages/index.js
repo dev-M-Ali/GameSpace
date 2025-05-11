@@ -113,8 +113,11 @@ export default function Home() {
                     <span className="text-sm text-white/50">
                       {/* You could add categories or tags here */}
                     </span>
-                    <button className="bg-[#F67385] hover:bg-[#C26DFC] text-white py-1.5 px-4 rounded-full text-sm font-medium transition-colors duration-300">
-                      Play
+                    <button className="bg-[#F67385] hover:bg-[#C26DFC] text-white py-2 px-6 rounded-full text-sm font-medium transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 flex items-center">
+                      <span>Play</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
                     </button>
                   </div>
                 </div>
@@ -130,29 +133,56 @@ export default function Home() {
           <div className="bg-gradient-to-r from-[#2D1A50]/70 to-[#1A0E2D]/70 backdrop-blur-lg rounded-2xl overflow-hidden border border-[#C26DFC]/30">
             <div className="grid md:grid-cols-2 items-center">
               <div className="p-8 md:p-12">
-                <h2 className="text-3xl font-bold text-white mb-4">Featured Game: <span className="text-[#F67385]">1024</span></h2>
+                <h2 className="text-3xl font-bold text-white mb-4">Featured Game: <span className="text-[#F67385]">Whack-a-Mole</span></h2>
                 <p className="text-white/80 mb-6 text-lg">
-                  Our newest addition! Combine numbered tiles strategically to reach 1024 and beyond. Each move matters in this addictive puzzle game.
+                  Test your reflexes in our popular Whack-a-Mole game! Tap those moles as quickly as you can to rack up points. Can you beat the high score?
                 </p>
                 <Link 
-                  href="/games/1024" 
-                  className="inline-flex items-center bg-[#F67385] hover:bg-[#C26DFC] text-white font-bold py-3 px-6 rounded-full transition-all duration-300"
+                  href="/games/whack-a-mole" 
+                  className="inline-flex items-center bg-[#F67385] hover:bg-[#C26DFC] text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-1"
                 >
-                  <span>Play 1024</span>
+                  <span>Play Whack-a-Mole</span>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
                 </Link>
               </div>
-              <div className="h-80 flex items-center justify-center bg-gradient-to-br from-amber-500/70 to-orange-600/70 p-6">
-                <div className="text-center">
-                  <span className="text-8xl">🔢</span>
-                  <div className="mt-4 grid grid-cols-2 gap-2">
-                    <div className="bg-amber-400 h-16 w-16 flex items-center justify-center rounded-lg text-white font-bold text-2xl">2</div>
-                    <div className="bg-amber-500 h-16 w-16 flex items-center justify-center rounded-lg text-white font-bold text-2xl">4</div>
-                    <div className="bg-orange-500 h-16 w-16 flex items-center justify-center rounded-lg text-white font-bold text-2xl">8</div>
-                    <div className="bg-orange-600 h-16 w-16 flex items-center justify-center rounded-lg text-white font-bold text-2xl">16</div>
+              <div className="h-80 flex items-center justify-center bg-gradient-to-br from-green-500/70 to-teal-600/70 p-6">
+                <div className="text-center relative">
+                  <div className="absolute -top-12 left-0 right-0 flex justify-center">
+                    <span className="text-8xl animate-bounce">🐹</span>
                   </div>
+                  <div className="mt-16 grid grid-cols-3 gap-4">
+                    <div className="bg-brown-500 h-12 w-12 rounded-full flex items-center justify-center relative overflow-hidden border-2 border-brown-700">
+                      <div className="absolute bottom-0 w-full h-1/2 bg-green-800"></div>
+                    </div>
+                    <div className="bg-brown-500 h-12 w-12 rounded-full flex items-center justify-center relative overflow-hidden border-2 border-brown-700">
+                      <div className="absolute bottom-0 w-full h-1/2 bg-green-800"></div>
+                    </div>
+                    <div className="bg-brown-500 h-12 w-12 rounded-full flex items-center justify-center relative overflow-hidden border-2 border-brown-700">
+                      <div className="absolute bottom-0 w-full h-1/2 bg-green-800"></div>
+                    </div>
+                    <div className="bg-brown-500 h-12 w-12 rounded-full flex items-center justify-center relative overflow-hidden border-2 border-brown-700">
+                      <div className="absolute bottom-0 w-full h-1/2 bg-green-800"></div>
+                    </div>
+                    <div className="bg-brown-500 h-12 w-12 rounded-full flex items-center justify-center relative overflow-hidden border-2 border-brown-700">
+                      <div className="absolute bottom-0 w-full h-1/2 bg-green-800"></div>
+                      <span className="absolute -top-5 text-3xl animate-bounce">🐹</span>
+                    </div>
+                    <div className="bg-brown-500 h-12 w-12 rounded-full flex items-center justify-center relative overflow-hidden border-2 border-brown-700">
+                      <div className="absolute bottom-0 w-full h-1/2 bg-green-800"></div>
+                    </div>
+                    <div className="bg-brown-500 h-12 w-12 rounded-full flex items-center justify-center relative overflow-hidden border-2 border-brown-700">
+                      <div className="absolute bottom-0 w-full h-1/2 bg-green-800"></div>
+                    </div>
+                    <div className="bg-brown-500 h-12 w-12 rounded-full flex items-center justify-center relative overflow-hidden border-2 border-brown-700">
+                      <div className="absolute bottom-0 w-full h-1/2 bg-green-800"></div>
+                    </div>
+                    <div className="bg-brown-500 h-12 w-12 rounded-full flex items-center justify-center relative overflow-hidden border-2 border-brown-700">
+                      <div className="absolute bottom-0 w-full h-1/2 bg-green-800"></div>
+                    </div>
+                  </div>
+                  <div className="mt-4 text-white font-bold text-xl">Score: 42</div>
                 </div>
               </div>
             </div>
@@ -164,7 +194,10 @@ export default function Home() {
       <section className="py-16 px-4 bg-gradient-to-b from-black/0 to-black/30">
         <div className="container mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
-            Why Play on <span className="text-[#C26DFC]">GameSpace</span>?
+            Why Play on <span className="relative px-2 py-1 rounded">
+              <span className="absolute inset-0 bg-[#C26DFC] opacity-80 rounded blur-sm"></span>
+              <span className="relative text-white font-extrabold">GameSpace</span>
+            </span>?
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
