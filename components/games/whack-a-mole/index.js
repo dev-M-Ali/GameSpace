@@ -34,7 +34,7 @@ function initializeArray(rows, cols) {
 // }
 
 export default function Whack_A_Mole(props) {
-    const r = props.rows ? Number(props.rows) : 3
+    const r = props.rows ? Number(props.rows) : 4
     const c = props.cols ? Number(props.cols) : 4
 
     const arr = initializeArray(r, c)
@@ -44,7 +44,7 @@ export default function Whack_A_Mole(props) {
     const [scoreState, setScore] = useState(0)
     const [gameOverState, setGameOverState] = useState(false)
 
-    const gameDurationInSeconds = 5
+    const gameDurationInSeconds = 25
     const spawnIntervalInSeconds = 1
     const transitionDownDurationInSeconds = 2      //Imp: Make sure that in test.module.css, in the mole CSS class, the transition duration is the same
 
@@ -74,7 +74,7 @@ export default function Whack_A_Mole(props) {
         let gameLoop = setInterval(() => {
             //console.log("HI!")
 
-            const n = Math.floor(Math.random() * ((r * c) + 1) * 0.7)
+            const n = Math.floor(Math.random() * ((r * c) + 1) * 0.75)
 
             //console.log("n is ", n)
 

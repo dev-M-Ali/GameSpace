@@ -21,15 +21,21 @@ export default function GameRenderer({ game }) {
 
         if (!(Object.keys(scoreObject).length === 0))
         {
-            //MISSING: Currently using dummy email
-            const userEmail = "user@gmail.com"
 
-            axios.post("/api/" + game + "/scores", { _id: userEmail, ...scoreObject })
-                .then((response) => console.log("Scores sent to API! Response: " + response))
-                .catch((error) => console.log(error))
+            axios.get("/api/auth/me").then(response => {
+                if (response.data.user)
+                {
+
+                    const userEmail = response.data.user.email
+
+                    axios.post("/api/" + game + "/scores", { _id: userEmail, ...scoreObject })
+                        .then((response) => console.log("Scores sent to API! Response: " + response))
+                        .catch((error) => console.log(error))
+                }
+            })
         }
-
     }, [scoreObject])
+
 
     return (
         <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 md:p-8">

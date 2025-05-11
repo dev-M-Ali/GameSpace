@@ -12,15 +12,24 @@ export default function CommentBox({ game }) {
 
         if (comment.current.value.length > 0)
         {
-            const obj = {
-                game: game,
-                email: "user@gmail.com",
-                message: comment.current.value
-            }
+            axios.get("/api/auth/me").then(response => {
 
-            //axios will take care of JSON.stringify and the headers
-            axios.post("/api/" + game + "/comments", obj).then(() => console.log("Comment posted successfully!")).catch(() => console.log("Some error occurred while posting your comment."))
-            //axios.post("/comments", obj).then(() => console.log("Comment posted successfully!")).catch(() => console.log("Some error occurred while posting your comment."))
+                //console.log("CommentBox.js -> response contains")
+                //console.log(response.data)
+
+                if (response.data.user)
+                {
+                    const obj = {
+                        game: game,
+                        email: response.data.user.email,
+                        message: comment.current.value
+                    }
+
+                    //axios will take care of JSON.stringify and the headers
+                    axios.post("/api/" + game + "/comments", obj).then(() => console.log("Comment posted successfully!")).catch(() => console.log("Some error occurred while posting your comment."))
+                    //axios.post("/comments", obj).then(() => console.log("Comment posted successfully!")).catch(() => console.log("Some error occurred while posting your comment."))
+                }
+            })
         }
     }
 
