@@ -1,13 +1,12 @@
 import { MongoClient } from "mongodb"
 import getConfig from 'next/config'
 
-// Only holds serverRuntimeConfig and publicRuntimeConfig
 const { serverRuntimeConfig } = getConfig()
 const DATABASE_URL = serverRuntimeConfig.DATABASE_URL
 
 // Minimal MongoDB connection options
 const options = {
-  serverSelectionTimeoutMS: 5000
+    serverSelectionTimeoutMS: 5000
 };
 
 export default async function handler(request, response) {
