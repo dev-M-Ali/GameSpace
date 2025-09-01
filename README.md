@@ -1,6 +1,6 @@
 # 🎮 GameSpace
 
-> A modern, interactive gaming platform built with Next.js, featuring multiple games, user authentication, and comprehensive admin management.
+> A modern, interactive gaming platform built with Next.js, featuring multiple games, user authentication, and comprehensive admin management. Accessible at: https://game-space-one.vercel.app/
 
 ![GameSpace Home Page](./ProjectShowcase/Home%20Page.png)
 
