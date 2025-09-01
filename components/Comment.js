@@ -1,5 +1,4 @@
 export default function Comment({ email, message, deleteCommentFunc }) {
-    // Format the message to preserve whitespace and line breaks
     const formattedMessage = message?.split('\n').map((line, index) => (
         <span key={index}>
             {line}

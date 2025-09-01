@@ -6,7 +6,8 @@ export default function Protected() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
+    if (!token)
+    {
       router.push("/auth/login");
     }
   }, [router]);

@@ -15,33 +15,33 @@ export default function Login() {
     setError("");
     setIsLoading(true);
 
-    try {
+    try
+    {
       console.log("Attempting login for:", email);
       const res = await axios.post("/api/auth/login", { email, password });
       console.log("Login successful");
 
-      // Redirect to the page specified in the query parameter, or home if none
       const redirectPath = redirect || "/";
       router.push(redirectPath);
-    } catch (err) {
+    } catch (err)
+    {
       console.error("Login error:", err);
-      
-      // Detailed error handling
-      if (err.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
+
+      if (err.response)
+      {
         console.error("Response error:", err.response.data);
         setError(err.response.data.message || `Error ${err.response.status}: ${err.response.statusText}`);
-      } else if (err.request) {
-        // The request was made but no response was received
+      } else if (err.request)
+      {
         console.error("Request error:", err.request);
         setError("No response from server. Please check your connection and try again.");
-      } else {
-        // Something happened in setting up the request that triggered an Error
+      } else
+      {
         console.error("Setup error:", err.message);
         setError(`Error: ${err.message}`);
       }
-    } finally {
+    } finally
+    {
       setIsLoading(false);
     }
   }

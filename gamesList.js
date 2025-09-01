@@ -12,15 +12,15 @@ const games = {
     "tictactoe": {
         component: TicTacToe
     },
-    
+
     "snake": {
         component: Snake
     },
-    
+
     "memory-match": {
         component: MemoryMatch
     },
-    
+
     "1024": {
         component: Game1024
     }

@@ -2,8 +2,7 @@ import { useState } from 'react';
 
 export default function Friends() {
   const [activeTab, setActiveTab] = useState('friends');
-  
-  // Sample friends data
+
   const friends = [
     {
       id: 1,
@@ -33,8 +32,7 @@ export default function Friends() {
       recentGame: "1024"
     },
   ];
-  
-  // Sample activity data
+
   const activities = [
     {
       id: 1,
@@ -68,15 +66,15 @@ export default function Friends() {
     <div className="bg-white/5 backdrop-blur-md rounded-xl border border-white/15 overflow-hidden mb-8">
       <div className="px-4 py-3 border-b border-white/10 flex justify-between items-center">
         <h2 className="text-xl font-bold text-white">Friends & Activity</h2>
-        
+
         <div className="flex rounded-lg bg-white/5 p-0.5">
-          <button 
+          <button
             className={`px-3 py-1 text-sm rounded-md transition-colors ${activeTab === 'friends' ? 'bg-[#C26DFC] text-white' : 'text-white/70 hover:text-white'}`}
             onClick={() => setActiveTab('friends')}
           >
             Friends ({friends.length})
           </button>
-          <button 
+          <button
             className={`px-3 py-1 text-sm rounded-md transition-colors ${activeTab === 'activity' ? 'bg-[#C26DFC] text-white' : 'text-white/70 hover:text-white'}`}
             onClick={() => setActiveTab('activity')}
           >
@@ -84,7 +82,7 @@ export default function Friends() {
           </button>
         </div>
       </div>
-      
+
       {activeTab === 'friends' && (
         <div className="p-4">
           <div className="space-y-3">
@@ -98,10 +96,10 @@ export default function Friends() {
                       friend.name.charAt(0)
                     )}
                   </div>
-                  
+
                   <div className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-[#1A0E2D] ${friend.online ? 'bg-green-500' : 'bg-gray-500'}`}></div>
                 </div>
-                
+
                 <div className="flex-grow min-w-0">
                   <div className="text-white font-medium">{friend.name}</div>
                   <div className="text-white/60 text-sm truncate">
@@ -109,14 +107,14 @@ export default function Friends() {
                     {friend.recentGame && !friend.online && ` • Last played: ${friend.recentGame}`}
                   </div>
                 </div>
-                
+
                 <div className="flex gap-2">
                   <button className="bg-[#C26DFC]/80 hover:bg-[#C26DFC] text-white text-sm p-2 rounded-lg transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </button>
-                  
+
                   <button className="bg-[#F67385]/80 hover:bg-[#F67385] text-white text-sm p-2 rounded-lg transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -127,7 +125,7 @@ export default function Friends() {
               </div>
             ))}
           </div>
-          
+
           <div className="mt-4 text-center">
             <button className="bg-white/10 hover:bg-white/15 text-white py-2 px-4 rounded-lg transition-colors text-sm font-medium">
               <div className="flex items-center justify-center">
@@ -140,7 +138,7 @@ export default function Friends() {
           </div>
         </div>
       )}
-      
+
       {activeTab === 'activity' && (
         <div className="p-4">
           <div className="space-y-4">
@@ -154,7 +152,7 @@ export default function Friends() {
                       activity.user.name.charAt(0)
                     )}
                   </div>
-                  
+
                   <div className="flex-grow">
                     <div className="text-white">
                       <span className="font-medium">{activity.user.name}</span> {activity.description}
@@ -164,7 +162,7 @@ export default function Friends() {
                     </div>
                   </div>
                 </div>
-                
+
                 {activity.type === 'challenge' && activity.pending && (
                   <div className="mt-3 flex gap-2 justify-end">
                     <button className="bg-[#F67385]/80 hover:bg-[#F67385] text-white text-sm py-1 px-3 rounded-lg transition-colors">
@@ -188,16 +186,20 @@ function formatTimeAgo(dateString) {
   const date = new Date(dateString);
   const now = new Date();
   const diffInSeconds = Math.floor((now - date) / 1000);
-  
-  if (diffInSeconds < 60) {
+
+  if (diffInSeconds < 60)
+  {
     return 'Just now';
-  } else if (diffInSeconds < 3600) {
+  } else if (diffInSeconds < 3600)
+  {
     const minutes = Math.floor(diffInSeconds / 60);
     return `${minutes}m ago`;
-  } else if (diffInSeconds < 86400) {
+  } else if (diffInSeconds < 86400)
+  {
     const hours = Math.floor(diffInSeconds / 3600);
     return `${hours}h ago`;
-  } else {
+  } else
+  {
     const days = Math.floor(diffInSeconds / 86400);
     return `${days}d ago`;
   }

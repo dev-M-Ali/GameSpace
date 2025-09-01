@@ -10,24 +10,26 @@ export default function UserManagement() {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [message, setMessage] = useState({ type: '', text: '' });
-  
+
   const router = useRouter();
   const usersPerPage = 10;
 
-  // Check authentication and admin status
   useEffect(() => {
     const checkAuth = async () => {
-      try {
+      try
+      {
         const { data } = await axios.get('/api/auth/check-admin');
-        
-        if (!data.isAdmin) {
+
+        if (!data.isAdmin)
+        {
           router.push('/');
           return;
         }
-        
+
         setUser(data.user);
         fetchUsers();
-      } catch (error) {
+      } catch (error)
+      {
         console.error('Authentication error:', error);
         router.push('/auth/login?redirect=admin/users');
       }
@@ -36,83 +38,83 @@ export default function UserManagement() {
     checkAuth();
   }, [router]);
 
-  // Fetch users from the database
   const fetchUsers = async () => {
     setLoading(true);
-    try {
-      // Fetch real users data from the API
+    try
+    {
       const { data } = await axios.get('/api/admin/users');
-      
-      if (data.success) {
+
+      if (data.success)
+      {
         setUsers(data.users);
-      } else {
+      } else
+      {
         setMessage({ type: 'error', text: data.message || 'Failed to load users.' });
       }
-    } catch (error) {
+    } catch (error)
+    {
       console.error('Failed to fetch users:', error);
       setMessage({ type: 'error', text: 'Failed to load users. Please try again.' });
-      
-      // If the API call fails, provide some fallback data for testing
+
       setUsers([
         { _id: '1', email: 'admin@example.com', isAdmin: true, lastLogin: new Date().toISOString() },
         { _id: '2', email: 'user@example.com', isAdmin: false, lastLogin: new Date(Date.now() - 86400000).toISOString() },
       ]);
-    } finally {
+    } finally
+    {
       setLoading(false);
     }
   };
 
-  // Handle toggle admin status
   const toggleAdminStatus = async (userId, currentStatus) => {
-    try {
+    try
+    {
       const response = await axios.post('/api/admin/set-admin-status', {
         userId,
         isAdmin: !currentStatus
       });
-      
-      if (response.data.success) {
-        // Update local state to reflect the change
-        setUsers(prevUsers => 
-          prevUsers.map(u => 
+
+      if (response.data.success)
+      {
+        setUsers(prevUsers =>
+          prevUsers.map(u =>
             u._id === userId ? { ...u, isAdmin: !currentStatus } : u
           )
         );
-        
-        setMessage({ 
-          type: 'success', 
+
+        setMessage({
+          type: 'success',
           text: `User is now ${!currentStatus ? 'an admin' : 'a regular user'}`
         });
-        
-        // Clear message after 3 seconds
+
         setTimeout(() => setMessage({ type: '', text: '' }), 3000);
       }
-    } catch (error) {
+    } catch (error)
+    {
       console.error('Failed to update admin status:', error);
-      setMessage({ 
-        type: 'error', 
+      setMessage({
+        type: 'error',
         text: error.response?.data?.message || 'Failed to update user. Please try again.'
       });
     }
   };
 
-  // Filter users based on search term
-  const filteredUsers = users.filter(user => 
+  const filteredUsers = users.filter(user =>
     user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Pagination
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
   const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
 
-  // Format date for display
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
   };
 
-  if (loading) {
+  if (loading)
+  {
     return (
       <div className="min-h-screen pt-20 flex items-center justify-center">
         <div className="animate-pulse text-white text-xl">Loading users...</div>
@@ -128,7 +130,7 @@ export default function UserManagement() {
             <h1 className="text-3xl font-bold text-white mb-2">User Management</h1>
             <p className="text-white/70">Manage all users in the system</p>
           </div>
-          
+
           <Link
             href="/admin"
             className="mt-4 md:mt-0 bg-[#C26DFC]/80 hover:bg-[#C26DFC] text-white px-4 py-2 rounded-lg transition-colors inline-flex items-center"
@@ -140,16 +142,13 @@ export default function UserManagement() {
           </Link>
         </div>
 
-        {/* Message alert */}
         {message.text && (
-          <div className={`p-4 mb-6 rounded-lg ${
-            message.type === 'success' ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'
-          }`}>
+          <div className={`p-4 mb-6 rounded-lg ${message.type === 'success' ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'
+            }`}>
             {message.text}
           </div>
         )}
 
-        {/* Search and filters */}
         <div className="mb-6">
           <div className="relative">
             <input
@@ -165,7 +164,6 @@ export default function UserManagement() {
           </div>
         </div>
 
-        {/* Users table */}
         <div className="bg-white/5 backdrop-blur-md rounded-xl border border-white/15 overflow-hidden mb-6">
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -183,11 +181,10 @@ export default function UserManagement() {
                     <tr key={userData._id} className="border-b border-white/5 hover:bg-white/5">
                       <td className="px-6 py-4 text-white">{userData.email}</td>
                       <td className="px-6 py-4">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          userData.isAdmin 
-                            ? 'bg-purple-400/20 text-purple-300'
-                            : 'bg-blue-400/20 text-blue-300'
-                        }`}>
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${userData.isAdmin
+                          ? 'bg-purple-400/20 text-purple-300'
+                          : 'bg-blue-400/20 text-blue-300'
+                          }`}>
                           {userData.isAdmin ? 'Admin' : 'User'}
                         </span>
                       </td>
@@ -195,11 +192,10 @@ export default function UserManagement() {
                       <td className="px-6 py-4 text-right">
                         <button
                           onClick={() => toggleAdminStatus(userData._id, userData.isAdmin)}
-                          className={`text-sm px-3 py-1 rounded-lg ${
-                            userData.isAdmin
-                              ? 'bg-red-500/20 text-red-300 hover:bg-red-500/30'
-                              : 'bg-purple-500/20 text-purple-300 hover:bg-purple-500/30'
-                          }`}
+                          className={`text-sm px-3 py-1 rounded-lg ${userData.isAdmin
+                            ? 'bg-red-500/20 text-red-300 hover:bg-red-500/30'
+                            : 'bg-purple-500/20 text-purple-300 hover:bg-purple-500/30'
+                            }`}
                         >
                           {userData.isAdmin ? 'Remove Admin' : 'Make Admin'}
                         </button>
@@ -218,33 +214,30 @@ export default function UserManagement() {
           </div>
         </div>
 
-        {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex justify-between items-center">
             <button
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className={`px-4 py-2 rounded-lg ${
-                currentPage === 1
-                  ? 'bg-white/5 text-white/30 cursor-not-allowed'
-                  : 'bg-white/10 text-white hover:bg-white/15'
-              }`}
+              className={`px-4 py-2 rounded-lg ${currentPage === 1
+                ? 'bg-white/5 text-white/30 cursor-not-allowed'
+                : 'bg-white/10 text-white hover:bg-white/15'
+                }`}
             >
               Previous
             </button>
-            
+
             <div className="text-white/70">
               Page {currentPage} of {totalPages}
             </div>
-            
+
             <button
               onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className={`px-4 py-2 rounded-lg ${
-                currentPage === totalPages
-                  ? 'bg-white/5 text-white/30 cursor-not-allowed'
-                  : 'bg-white/10 text-white hover:bg-white/15'
-              }`}
+              className={`px-4 py-2 rounded-lg ${currentPage === totalPages
+                ? 'bg-white/5 text-white/30 cursor-not-allowed'
+                : 'bg-white/10 text-white hover:bg-white/15'
+                }`}
             >
               Next
             </button>

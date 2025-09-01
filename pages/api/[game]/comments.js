@@ -4,7 +4,6 @@ import getConfig from 'next/config'
 const { serverRuntimeConfig } = getConfig()
 const DATABASE_URL = serverRuntimeConfig.DATABASE_URL
 
-// Minimal MongoDB connection options
 const options = {
     serverSelectionTimeoutMS: 5000
 };

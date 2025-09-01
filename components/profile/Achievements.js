@@ -2,53 +2,52 @@ import { useState } from 'react';
 
 export default function Achievements() {
   const [showUnlocked, setShowUnlocked] = useState(true);
-  
-  // Sample achievements data
+
   const achievements = [
-    { 
-      id: 1, 
-      title: "Snake Master", 
-      description: "Score 200+ points in Snake", 
-      icon: "🐍", 
-      progress: 75, 
+    {
+      id: 1,
+      title: "Snake Master",
+      description: "Score 200+ points in Snake",
+      icon: "🐍",
+      progress: 75,
       unlocked: false,
       game: "Snake"
     },
-    { 
-      id: 2, 
-      title: "Memory Expert", 
-      description: "Complete Memory Match in under 30 seconds", 
-      icon: "🎴", 
-      progress: 100, 
+    {
+      id: 2,
+      title: "Memory Expert",
+      description: "Complete Memory Match in under 30 seconds",
+      icon: "🎴",
+      progress: 100,
       unlocked: true,
       game: "Memory Match",
       unlockedDate: "2023-05-10"
     },
-    { 
-      id: 3, 
-      title: "Whack Champion", 
-      description: "Score 50+ in Whack-a-Mole", 
-      icon: "🐹", 
-      progress: 100, 
+    {
+      id: 3,
+      title: "Whack Champion",
+      description: "Score 50+ in Whack-a-Mole",
+      icon: "🐹",
+      progress: 100,
       unlocked: true,
       game: "Whack-a-Mole",
       unlockedDate: "2023-04-15"
     },
-    { 
-      id: 4, 
-      title: "Puzzle Solver", 
-      description: "Reach 1024 tile", 
-      icon: "🔢", 
-      progress: 30, 
+    {
+      id: 4,
+      title: "Puzzle Solver",
+      description: "Reach 1024 tile",
+      icon: "🔢",
+      progress: 30,
       unlocked: false,
       game: "1024"
     },
-    { 
-      id: 5, 
-      title: "Undefeated", 
-      description: "Win 10 consecutive Tic Tac Toe games", 
-      icon: "✕⭘", 
-      progress: 100, 
+    {
+      id: 5,
+      title: "Undefeated",
+      description: "Win 10 consecutive Tic Tac Toe games",
+      icon: "✕⭘",
+      progress: 100,
       unlocked: true,
       game: "Tic Tac Toe",
       unlockedDate: "2023-05-01"
@@ -63,15 +62,15 @@ export default function Achievements() {
     <div className="bg-white/5 backdrop-blur-md rounded-xl border border-white/15 overflow-hidden mb-8">
       <div className="px-4 py-3 border-b border-white/10 flex justify-between items-center">
         <h2 className="text-xl font-bold text-white">Achievements</h2>
-        
+
         <div className="flex rounded-lg bg-white/5 p-0.5">
-          <button 
+          <button
             className={`px-3 py-1 text-sm rounded-md transition-colors ${showUnlocked ? 'bg-[#C26DFC] text-white' : 'text-white/70 hover:text-white'}`}
             onClick={() => setShowUnlocked(true)}
           >
             Unlocked ({unlockedAchievements.length})
           </button>
-          <button 
+          <button
             className={`px-3 py-1 text-sm rounded-md transition-colors ${!showUnlocked ? 'bg-[#C26DFC] text-white' : 'text-white/70 hover:text-white'}`}
             onClick={() => setShowUnlocked(false)}
           >
@@ -79,25 +78,25 @@ export default function Achievements() {
           </button>
         </div>
       </div>
-      
+
       <div className="p-4">
         {displayedAchievements.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {displayedAchievements.map(achievement => (
-              <div 
-                key={achievement.id} 
-                className={`p-4 rounded-lg border ${achievement.unlocked 
-                  ? 'bg-white/10 border-[#C26DFC]/30' 
+              <div
+                key={achievement.id}
+                className={`p-4 rounded-lg border ${achievement.unlocked
+                  ? 'bg-white/10 border-[#C26DFC]/30'
                   : 'bg-white/5 border-white/10'
-                } flex items-center gap-4`}
+                  } flex items-center gap-4`}
               >
-                <div className={`w-14 h-14 rounded-lg flex items-center justify-center text-3xl ${achievement.unlocked 
-                  ? 'bg-gradient-to-br from-[#C26DFC] to-[#F67385]' 
+                <div className={`w-14 h-14 rounded-lg flex items-center justify-center text-3xl ${achievement.unlocked
+                  ? 'bg-gradient-to-br from-[#C26DFC] to-[#F67385]'
                   : 'bg-white/10'
-                }`}>
+                  }`}>
                   {achievement.icon}
                 </div>
-                
+
                 <div className="flex-grow">
                   <div className="flex items-center">
                     <h3 className="text-white font-semibold">{achievement.title}</h3>
@@ -109,13 +108,13 @@ export default function Achievements() {
                       </div>
                     )}
                   </div>
-                  
+
                   <p className="text-white/70 text-sm mt-1">{achievement.description}</p>
-                  
+
                   {!achievement.unlocked && (
                     <div className="mt-2">
                       <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                        <div 
+                        <div
                           className="h-full bg-gradient-to-r from-[#C26DFC] to-[#F67385] rounded-full"
                           style={{ width: `${achievement.progress}%` }}
                         ></div>
@@ -125,7 +124,7 @@ export default function Achievements() {
                       </div>
                     </div>
                   )}
-                  
+
                   {achievement.unlocked && achievement.unlockedDate && (
                     <div className="text-white/50 text-xs mt-1">
                       Unlocked: {new Date(achievement.unlockedDate).toLocaleDateString()}
@@ -137,8 +136,8 @@ export default function Achievements() {
           </div>
         ) : (
           <div className="text-center py-8 text-white/60">
-            {showUnlocked 
-              ? "You haven't unlocked any achievements yet. Keep playing!" 
+            {showUnlocked
+              ? "You haven't unlocked any achievements yet. Keep playing!"
               : "No achievements in progress. You've unlocked them all!"}
           </div>
         )}

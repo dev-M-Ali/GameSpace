@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
 
-// Import profile components
 import ProfileHeader from "../components/profile/ProfileHeader";
 import GameActivity from "../components/profile/GameActivity";
 import Achievements from "../components/profile/Achievements";
@@ -19,40 +18,42 @@ export default function Profile() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      try {
-        // Get user data
+      try
+      {
         const { data } = await axios.get("/api/auth/me");
-        
-        if (!data.user) {
+
+        if (!data.user)
+        {
           router.push("/auth/login?redirect=profile");
           return;
         }
-        
+
         setUser(data.user);
 
-        // Check if user is admin
-        try {
+        try
+        {
           const adminCheck = await axios.get("/api/auth/check-admin");
           setIsAdmin(adminCheck.data.isAdmin);
-        } catch (err) {
+        } catch (err)
+        {
           console.error("Failed to check admin status:", err);
         }
 
-        // Fetch user scores from all game endpoints
         const games = ['snake', 'whack-a-mole', 'tictactoe', 'memory-match', '1024'];
         const scoresData = [];
-        
-        for (const game of games) {
-          try {
+
+        for (const game of games)
+        {
+          try
+          {
             const response = await axios.get(`/api/${game}/scores?email=${data.user.email}`);
-            if (response.data && response.data.length > 0) {
-              // Format game name for display
+            if (response.data && response.data.length > 0)
+            {
               const formattedGameName = game
                 .split('-')
                 .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                 .join(' ');
-              
-              // For each score entry for this game
+
               response.data.forEach(entry => {
                 scoresData.push({
                   game: game === 'tictactoe' ? 'Tic Tac Toe' : formattedGameName,
@@ -61,17 +62,19 @@ export default function Profile() {
                 });
               });
             }
-          } catch (err) {
+          } catch (err)
+          {
             console.error(`Failed to fetch scores for ${game}:`, err);
           }
         }
-        
-        // Sort by date (newest first)
+
         scoresData.sort((a, b) => new Date(b.date) - new Date(a.date));
         setScores(scoresData);
-      } catch (error) {
+      } catch (error)
+      {
         console.error("Failed to fetch user data", error);
-      } finally {
+      } finally
+      {
         setLoading(false);
       }
     };
@@ -79,7 +82,8 @@ export default function Profile() {
     fetchUserData();
   }, [router]);
 
-  if (loading) {
+  if (loading)
+  {
     return (
       <div className="min-h-screen pt-20 flex items-center justify-center">
         <div className="animate-pulse text-white text-xl">Loading profile...</div>
@@ -89,11 +93,9 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen pt-20 pb-10 bg-[#1A0E2D]">
-      {/* Profile Header */}
       <ProfileHeader user={user} />
-      
+
       <div className="max-w-4xl mx-auto px-4">
-        {/* Admin Dashboard Link (only for admin users) */}
         {isAdmin && (
           <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl p-4 mb-8 shadow-lg hover:shadow-xl transition-all">
             <div className="flex items-center justify-between">
@@ -101,7 +103,7 @@ export default function Profile() {
                 <h2 className="text-xl font-bold text-white">Admin Dashboard</h2>
                 <p className="text-white/80">Manage users, games, and content</p>
               </div>
-              <Link 
+              <Link
                 href="/admin"
                 className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-colors inline-flex items-center"
               >
@@ -113,22 +115,17 @@ export default function Profile() {
             </div>
           </div>
         )}
-        
-        {/* Game Activity */}
+
         <GameActivity scores={scores} />
-        
-        {/* Achievements */}
+
         <Achievements />
-        
-        {/* Game Recommendations */}
+
         <GameRecommendations />
-        
-        {/* Friends Component */}
+
         <Friends />
-        
-        {/* Action Buttons */}
+
         <div className="flex flex-col md:flex-row justify-between gap-4 mt-8">
-          <Link 
+          <Link
             href="/"
             className="bg-[#C26DFC] text-white px-4 py-3 rounded-xl shadow-md hover:bg-[#A84FE0] transition-all active:scale-95 inline-flex items-center justify-center md:justify-start"
           >
@@ -137,12 +134,14 @@ export default function Profile() {
             </svg>
             Back to Home
           </Link>
-          <button 
+          <button
             onClick={async () => {
-              try {
+              try
+              {
                 await axios.get("/api/auth/logout");
                 router.push("/");
-              } catch (error) {
+              } catch (error)
+              {
                 console.error("Failed to logout", error);
               }
             }}

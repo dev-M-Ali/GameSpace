@@ -12,24 +12,28 @@ const Navbar = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // Check if user is logged in
     const fetchUser = async () => {
-      try {
+      try
+      {
         const { data } = await axios.get("/api/auth/me");
         setUser(data.user);
-        
-        // If user is logged in, check if they're an admin
-        if (data.user) {
-          try {
+
+        if (data.user)
+        {
+          try
+          {
             const adminCheck = await axios.get("/api/auth/check-admin");
             setIsAdmin(adminCheck.data.isAdmin);
-          } catch (error) {
+          } catch (error)
+          {
             console.error("Failed to check admin status", error);
           }
         }
-      } catch (error) {
+      } catch (error)
+      {
         console.error("Failed to fetch user", error);
-      } finally {
+      } finally
+      {
         setLoading(false);
       }
     };
@@ -40,26 +44,28 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-  
+
   const handleLogin = () => {
     router.push("/auth/login");
   };
-  
+
   const handleSignup = () => {
     router.push("/auth/signup");
   };
-  
+
   const handleLogout = async () => {
-    try {
+    try
+    {
       await axios.get("/api/auth/logout");
       setUser(null);
       setIsAdmin(false);
       router.push("/");
-    } catch (error) {
+    } catch (error)
+    {
       console.error("Failed to logout", error);
     }
   };
-  
+
   const handleProfile = () => {
     router.push("/profile");
   };
@@ -191,7 +197,7 @@ const Navbar = () => {
           )}
         </div>
       </div>
-      
+
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden mt-4 bg-[#F67385]/20 backdrop-blur-md p-4 rounded-xl">
@@ -231,7 +237,7 @@ const Navbar = () => {
             >
               1024
             </Link>
-            
+
             {/* Admin Link (Mobile) */}
             {user && isAdmin && (
               <button
@@ -244,7 +250,7 @@ const Navbar = () => {
                 Admin Dashboard
               </button>
             )}
-            
+
             <div className="flex space-x-2 mt-2">
               {loading ? (
                 <div className="bg-[#F67385]/50 text-white px-3 py-2 rounded-xl animate-pulse flex-1 text-center">

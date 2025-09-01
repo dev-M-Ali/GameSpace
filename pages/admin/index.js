@@ -12,36 +12,40 @@ export default function AdminDashboard() {
     totalPlays: 0,
     gameStats: []
   });
-  
+
   const router = useRouter();
 
   useEffect(() => {
     const fetchDashboardData = async () => {
-      try {
-        // Check admin status
+      try
+      {
         const { data: adminData } = await axios.get('/api/auth/check-admin');
-        
-        if (!adminData.isAdmin) {
+
+        if (!adminData.isAdmin)
+        {
           router.push('/');
           return;
         }
-        
+
         setUser(adminData.user);
-        
-        // Fetch dashboard statistics
-        try {
+
+        try
+        {
           const { data: statsData } = await axios.get('/api/admin/stats');
-          if (statsData.success) {
+          if (statsData.success)
+          {
             setStats(statsData.stats);
           }
-        } catch (statsError) {
+        } catch (statsError)
+        {
           console.error('Failed to fetch stats data:', statsError);
-          // If stats fail, we still show the dashboard with default values
         }
-      } catch (error) {
+      } catch (error)
+      {
         console.error('Failed to fetch admin data:', error);
         router.push('/auth/login?redirect=admin');
-      } finally {
+      } finally
+      {
         setLoading(false);
       }
     };
@@ -49,7 +53,8 @@ export default function AdminDashboard() {
     fetchDashboardData();
   }, [router]);
 
-  if (loading) {
+  if (loading)
+  {
     return (
       <div className="min-h-screen pt-20 flex items-center justify-center">
         <div className="animate-pulse text-white text-xl">Loading admin dashboard...</div>
@@ -72,7 +77,6 @@ export default function AdminDashboard() {
           <StatCard title="Total Game Plays" value={stats.totalPlays} icon="🎯" color="bg-gradient-to-br from-emerald-500 to-green-600" />
         </div>
 
-        {/* Game Statistics */}
         {stats.gameStats && stats.gameStats.length > 0 && (
           <div className="bg-white/5 backdrop-blur-md rounded-xl border border-white/15 overflow-hidden mb-8">
             <div className="px-4 py-3 border-b border-white/10">
@@ -107,10 +111,9 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* Management Sections - Only include user management which is implemented */}
         <div className="mb-8">
-          <AdminSection 
-            title="User Management" 
+          <AdminSection
+            title="User Management"
             description="Manage user accounts and permissions"
             icon="👥"
             actions={[
@@ -119,7 +122,6 @@ export default function AdminDashboard() {
           />
         </div>
 
-        {/* Note about future functionality */}
         <div className="bg-white/5 backdrop-blur-md rounded-xl border border-white/15 overflow-hidden mb-8 p-6">
           <h2 className="text-xl font-bold text-white mb-4">Admin Dashboard Development</h2>
           <p className="text-white/70 mb-3">
@@ -135,7 +137,6 @@ export default function AdminDashboard() {
           </ul>
         </div>
 
-        {/* Return to site button */}
         <div className="mt-8 flex justify-end">
           <Link
             href="/"
@@ -179,12 +180,12 @@ function AdminSection({ title, description, icon, actions }) {
           <div className="text-3xl">{icon}</div>
           <h2 className="text-xl font-bold text-white">{title}</h2>
         </div>
-        
+
         <p className="text-white/70 mb-6">{description}</p>
-        
+
         <div className="space-y-2">
           {actions.map((action, index) => (
-            <Link 
+            <Link
               key={index}
               href={action.href}
               className="w-full bg-white/10 hover:bg-white/15 text-white py-2 px-4 rounded-lg transition-colors inline-flex items-center justify-between"
